@@ -12,25 +12,14 @@
  * along with this program.  If not, see http://www.gnu.org/licenses.
  */
 
-package chikachi.discord.core.config.minecraft;
+package chikachi.discord.core.config.integrations;
 
-import chikachi.discord.core.config.integrations.MinecraftIntegrationConfig;
 import com.google.gson.annotations.Since;
 
-public class MinecraftConfig {
-    @Since(3.0)
-    public MinecraftMainDimensionConfig dimensions = new MinecraftMainDimensionConfig();
-    @Since(3.0)
-    public MinecraftIntegrationConfig integrations = new MinecraftIntegrationConfig();
+public class DynmapIntegrationConfig {
+    @Since(4.0)
+    public boolean enabled = true;
 
     public void fillFields() {
-        if (this.dimensions == null) {
-            this.dimensions = new MinecraftMainDimensionConfig();
-        }
-        this.dimensions.fillFields();
-
-        if (this.integrations == null) {
-            this.integrations = new MinecraftIntegrationConfig();
-        }
     }
 }
