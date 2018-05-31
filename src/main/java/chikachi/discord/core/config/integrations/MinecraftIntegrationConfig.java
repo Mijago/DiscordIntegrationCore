@@ -12,11 +12,18 @@
  * along with this program.  If not, see http://www.gnu.org/licenses.
  */
 
-package chikachi.discord.core.config.minecraft;
+package chikachi.discord.core.config.integrations;
 
 import com.google.gson.annotations.Since;
 
 public class MinecraftIntegrationConfig {
-    @Since(3.0)
-    public boolean dynmapEnabled = true;
+    @Since(4.0)
+    public DynmapIntegrationConfig dynmap;
+
+    public void fillFields() {
+        if (this.dynmap == null) {
+            this.dynmap = new DynmapIntegrationConfig();
+        }
+        this.dynmap.fillFields();
+    }
 }

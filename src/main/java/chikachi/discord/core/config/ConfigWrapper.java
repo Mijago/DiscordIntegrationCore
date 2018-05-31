@@ -28,7 +28,7 @@ public class ConfigWrapper {
     @Since(3.0)
     public IMCConfig imc;
     @Since(4.0)
-    public LinkingConfig linkingConfig;
+    public LinkingConfig linking;
 
     public void fillFields() {
         if (this.discord == null) {
@@ -46,9 +46,9 @@ public class ConfigWrapper {
         }
         this.imc.fillFields();
 
-        if (this.linkingConfig == null) {
-            this.linkingConfig = new LinkingConfig();
+        if (this.linking == null) {
+            this.linking = new LinkingConfig();
         }
-        this.linkingConfig.fillFields();
+        this.linking.fillFields();
     }
 }
