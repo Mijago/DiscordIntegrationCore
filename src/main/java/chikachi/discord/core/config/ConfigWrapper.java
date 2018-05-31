@@ -16,6 +16,7 @@ package chikachi.discord.core.config;
 
 import chikachi.discord.core.config.discord.DiscordConfig;
 import chikachi.discord.core.config.imc.IMCConfig;
+import chikachi.discord.core.config.linking.LinkingConfig;
 import chikachi.discord.core.config.minecraft.MinecraftConfig;
 import com.google.gson.annotations.Since;
 
@@ -26,6 +27,8 @@ public class ConfigWrapper {
     public MinecraftConfig minecraft;
     @Since(3.0)
     public IMCConfig imc;
+    @Since(4.0)
+    public LinkingConfig linkingConfig;
 
     public void fillFields() {
         if (this.discord == null) {
@@ -42,5 +45,10 @@ public class ConfigWrapper {
             this.imc = new IMCConfig();
         }
         this.imc.fillFields();
+
+        if (this.linkingConfig == null) {
+            this.linkingConfig = new LinkingConfig();
+        }
+        this.linkingConfig.fillFields();
     }
 }
