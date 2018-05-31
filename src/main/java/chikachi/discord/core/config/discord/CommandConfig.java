@@ -115,6 +115,9 @@ public class CommandConfig {
                 if (user.getId().equals(permission.substring(5)) || (user.getName() + "#" + user.getDiscriminator()).equals(permission.substring(5))) {
                     return true;
                 }
+            } else if (permission.startsWith("linked:") && Configuration.getConfig().linking.enabled) {
+                boolean userIsLinked = Configuration.getLinking().getMinecraftId(user.getIdLong()) != null;
+                return permission.endsWith("true") == userIsLinked;
             } else {
                 if (user.getId().equals(permission) || (user.getName() + "#" + user.getDiscriminator()).equals(permission)) {
                     return true;
