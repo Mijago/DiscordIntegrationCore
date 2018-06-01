@@ -15,11 +15,12 @@
 package chikachi.discord.core.config.linking;
 
 import chikachi.discord.core.config.Configuration;
+import chikachi.discord.core.config.IConfigurable;
 import com.google.gson.annotations.Since;
 
 import java.util.*;
 
-public class LinkingWrapper {
+public class LinkingWrapper implements IConfigurable {
     @Since(3.0)
     private HashMap<UUID, Long> linked = new HashMap<>();
     @Since(3.0)
@@ -84,5 +85,10 @@ public class LinkingWrapper {
     public void removeLink(UUID minecraftUUID) {
         this.linked.remove(minecraftUUID);
         Configuration.saveLinking();
+    }
+
+    @Override
+    public void fillFields() {
+
     }
 }
