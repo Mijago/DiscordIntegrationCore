@@ -16,6 +16,7 @@ package chikachi.discord.core.config;
 
 import chikachi.discord.core.CoreConstants;
 import chikachi.discord.core.config.linking.LinkingWrapper;
+import chikachi.discord.core.config.secrets.SecretsWrapper;
 
 import java.io.File;
 
@@ -24,6 +25,7 @@ public class Configuration {
 
     private static ConfigurationFile<ConfigWrapper> config;
     private static ConfigurationFile<LinkingWrapper> linking;
+    private static ConfigurationFile<SecretsWrapper> secrets;
 
     public static void onPreInit(String directoryPath) {
         directory = new File(directoryPath);
@@ -38,6 +40,10 @@ public class Configuration {
         File linkingFile = new File(directory, CoreConstants.MODID + "_links.json");
         linking = new ConfigurationFile<>(LinkingWrapper.class, linkingFile);
         linking.load();
+
+        File secretsFile = new File(directory, CoreConstants.MODID + "_secrets.json");
+        secrets = new ConfigurationFile<>(SecretsWrapper.class, secretsFile);
+        secrets.load();
     }
 
     public static void loadConfig() {
@@ -48,8 +54,9 @@ public class Configuration {
      * Saves all config files
      */
     public static void save() {
-        config.save();
-        linking.save();
+        saveConfig();
+        saveLinking();
+        saveSecrets();
     }
 
     public static void saveConfig() {
@@ -59,8 +66,14 @@ public class Configuration {
     public static void saveLinking() {
         linking.save();
     }
+
+    public static void saveSecrets() {
+        secrets.save();
+    }
+
     public static void saveClean() {
-        config.saveClean(directory);
+        saveCleanConfig();
+        saveCleanSecrets();
     }
 
     public static void saveCleanConfig() {
@@ -71,11 +84,19 @@ public class Configuration {
         linking.saveClean(directory);
     }
 
+    public static void saveCleanSecrets() {
+        secrets.saveClean(directory);
+    }
+
     public static ConfigWrapper getConfig() {
         return config.getWrapper();
     }
 
     public static LinkingWrapper getLinking() {
         return linking.getWrapper();
+    }
+
+    public static SecretsWrapper getSecrets() {
+        return secrets.getWrapper();
     }
 }

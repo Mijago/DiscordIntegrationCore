@@ -80,7 +80,7 @@ public class DiscordClient extends ListenerAdapter {
             return;
         }
 
-        String token = Configuration.getConfig().discord.token;
+        String token = Configuration.getSecrets().discord.token;
 
         if (token == null || token.isEmpty()) {
             if (noMessage) {
