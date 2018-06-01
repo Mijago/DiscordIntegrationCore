@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 public class DiscordConfig {
     @Since(3.0)
-    public String token = "";
-    @Since(3.0)
     public boolean ignoresBots = true;
     @Since(3.0)
     public boolean allowLinking = true;
@@ -32,10 +30,6 @@ public class DiscordConfig {
     public DiscordMainChannelConfig channels = new DiscordMainChannelConfig();
 
     public void fillFields() {
-        if (this.token == null) {
-            this.token = "";
-        }
-
         if (this.ignoresUsers == null) {
             this.ignoresUsers = new ArrayList<>();
         }
@@ -51,9 +45,7 @@ public class DiscordConfig {
     }
 
     public ArrayList<CommandConfig> getCommandConfigs() {
-        ArrayList<CommandConfig> list = new ArrayList<>();
-
-        list.addAll(channels.generic.commands);
+        ArrayList<CommandConfig> list = new ArrayList<>(channels.generic.commands);
         channels.channels.forEach((key, value) -> list.addAll(value.commands));
 
         return list;
