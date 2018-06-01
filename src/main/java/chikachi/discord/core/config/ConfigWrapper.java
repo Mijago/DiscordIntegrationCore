@@ -20,7 +20,7 @@ import chikachi.discord.core.config.linking.LinkingConfig;
 import chikachi.discord.core.config.minecraft.MinecraftConfig;
 import com.google.gson.annotations.Since;
 
-public class ConfigWrapper {
+public class ConfigWrapper implements IConfigurable {
     @Since(3.0)
     public DiscordConfig discord;
     @Since(3.0)
