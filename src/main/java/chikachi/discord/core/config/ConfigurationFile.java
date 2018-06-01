@@ -37,15 +37,17 @@ public class ConfigurationFile<T extends IConfigurable> {
         if (file == null) {
             return;
         }
-        Gson gson = createGson();
 
         if (!file.exists()) {
             createDefaultConfiguration();
         } else {
             try (FileReader fileReader = new FileReader(this.file)) {
+                Gson gson = createGson();
                 wrapper = gson.fromJson(fileReader, wrapperClass);
                 if (wrapper == null) {
                     wrapper = createAndFillWrapperInstance();
+                } else {
+                    wrapper.fillFields();
                 }
             } catch (Exception e) {
                 if (e instanceof JsonSyntaxException) {
