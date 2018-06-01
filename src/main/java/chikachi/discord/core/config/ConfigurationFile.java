@@ -112,7 +112,7 @@ public class ConfigurationFile<T extends IConfigurable> {
             .registerTypeAdapter(DimensionConfigType.class, new DimensionConfigTypeAdapter())
             .registerTypeAdapter(MessageConfig.class, new MessageConfigAdapter())
             .registerTypeAdapter(Pattern.class, new PatternAdapter())
-            .setVersion(3.0)
+            .setVersion(4.0)
             .setPrettyPrinting()
             .create();
     }
