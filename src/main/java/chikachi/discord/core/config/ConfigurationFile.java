@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Since(4.0)
 public class ConfigurationFile<T extends IConfigurable> {
     /**
-     * This is used to create a new instance of the config, if necessary
+     * This is used to create a new instance of the config, if necessary.
      */
     private Class<T> wrapperClass;
 
@@ -45,9 +45,8 @@ public class ConfigurationFile<T extends IConfigurable> {
             try (FileReader fileReader = new FileReader(this.file)) {
                 wrapper = gson.fromJson(fileReader, wrapperClass);
                 if (wrapper == null) {
-                    wrapper = createWrapperInstance();
+                    wrapper = createAndFillWrapperInstance();
                 }
-                wrapper.fillFields();
             } catch (Exception e) {
                 if (e instanceof JsonSyntaxException) {
                     DiscordIntegrationLogger.Log("Config had invalid syntax - Please check it using a JSON tool ( https://jsonlint.com/ ) or make sure it have the right content", true);
@@ -56,26 +55,24 @@ public class ConfigurationFile<T extends IConfigurable> {
                 e.printStackTrace();
 
                 if (wrapper == null) {
-                    wrapper = createWrapperInstance();
-                    if (wrapper != null) {
-                        wrapper.fillFields();
-                    }
+                    wrapper = createAndFillWrapperInstance();
                 }
             }
         }
     }
 
     private void createDefaultConfiguration() {
-        T wrapper = createWrapperInstance();
-        if (wrapper == null) return;
-        this.wrapper.fillFields();
-        save();
+        wrapper = createAndFillWrapperInstance();
+        if (wrapper != null) {
+            save();
+        }
     }
 
-    private T createWrapperInstance() {
+    private T createAndFillWrapperInstance() {
         T result = null;
         try {
             result = wrapperClass.newInstance();
+            result.fillFields();
         } catch (InstantiationException | IllegalAccessException e) {
             System.err.println("Could not create a wrapper instance.");
             e.printStackTrace();
@@ -86,8 +83,9 @@ public class ConfigurationFile<T extends IConfigurable> {
     public void save() {
         Gson gson = createGson();
 
-        if (wrapper == null)
-            wrapper = createWrapperInstance();
+        if (wrapper == null) {
+            wrapper = createAndFillWrapperInstance();
+        }
 
         try (FileWriter writer = new FileWriter(this.file)) {
             writer.write(gson.toJson(wrapper));
