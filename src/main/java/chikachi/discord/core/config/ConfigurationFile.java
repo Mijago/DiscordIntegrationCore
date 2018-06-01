@@ -1,6 +1,5 @@
 package chikachi.discord.core.config;
 
-import chikachi.discord.core.CoreConstants;
 import chikachi.discord.core.DiscordIntegrationLogger;
 import chikachi.discord.core.config.types.*;
 import com.google.gson.Gson;
@@ -9,7 +8,10 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Since;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 @Since(4.0)
@@ -40,7 +42,7 @@ public class ConfigurationFile<T extends IConfigurable> {
         if (!file.exists()) {
             createDefaultConfiguration();
         } else {
-            try (FileReader fileReader = new FileReader(this.file)){
+            try (FileReader fileReader = new FileReader(this.file)) {
                 wrapper = gson.fromJson(fileReader, wrapperClass);
                 if (wrapper == null) {
                     wrapper = createWrapperInstance();
@@ -84,14 +86,11 @@ public class ConfigurationFile<T extends IConfigurable> {
     public void save() {
         Gson gson = createGson();
 
-        //TODO: create empty
         if (wrapper == null)
-            return;
+            wrapper = createWrapperInstance();
 
-        try {
-            FileWriter writer = new FileWriter(this.file);
+        try (FileWriter writer = new FileWriter(this.file)) {
             writer.write(gson.toJson(wrapper));
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,12 +98,10 @@ public class ConfigurationFile<T extends IConfigurable> {
 
     public void saveClean(File directory) {
         Gson gson = createGson();
-        try {
-            FileWriter writer = new FileWriter(new File(directory, CoreConstants.MODID + "_clean.json"));
+        try (FileWriter writer = new FileWriter(this.file.getPath().replace(".json", "_clean.json"));) {
             ConfigWrapper cleanConfig = new ConfigWrapper();
             cleanConfig.fillFields();
             writer.write(gson.toJson(cleanConfig));
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
