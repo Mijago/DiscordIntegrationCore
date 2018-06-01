@@ -15,9 +15,6 @@
 package chikachi.discord.core.config.discord;
 
 import com.google.gson.annotations.Since;
-import net.dv8tion.jda.core.entities.User;
-
-import java.util.ArrayList;
 
 @Since(4.0)
 public class DiscordSecretConfig {

@@ -14,12 +14,8 @@
 
 package chikachi.discord.core.config.linking;
 
-import chikachi.discord.core.config.discord.CommandConfig;
-import chikachi.discord.core.config.discord.DiscordMainChannelConfig;
 import com.google.gson.annotations.Since;
-import net.dv8tion.jda.core.entities.User;
 
-import java.util.ArrayList;
 
 public class LinkingConfig {
     @Since(4.0)
