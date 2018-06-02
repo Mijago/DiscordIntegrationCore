@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Chikachi
+ * Copyright (C) 2018 Chikachi and other contributors
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
@@ -28,6 +28,8 @@ public class DiscordConfig {
     public ArrayList<String> ignoresUsers = new ArrayList<>();
     @Since(3.0)
     public DiscordMainChannelConfig channels = new DiscordMainChannelConfig();
+    @Since(3.0)
+    public DiscordPresenceConfig presence = new DiscordPresenceConfig();
 
     public void fillFields() {
         if (this.ignoresUsers == null) {
@@ -38,6 +40,11 @@ public class DiscordConfig {
             this.channels = new DiscordMainChannelConfig();
         }
         this.channels.fillFields();
+
+        if (this.presence == null) {
+            this.presence = new DiscordPresenceConfig();
+        }
+        this.presence.fillFields();
     }
 
     public boolean isIgnoringUser(User user) {

@@ -12,14 +12,21 @@
  * along with this program.  If not, see http://www.gnu.org/licenses.
  */
 
-package chikachi.discord.core.config.integrations;
+package chikachi.discord.core.config.discord;
 
 import com.google.gson.annotations.Since;
 
-public class DynmapIntegrationConfig {
-    @Since(4.0)
+public class DiscordPresenceConfig {
+    @Since(3.0)
     public boolean enabled = true;
+    @Since(3.0)
+    public DiscordPresenceMessagesConfig messages;
+
 
     public void fillFields() {
+        if (messages == null) {
+            messages = new DiscordPresenceMessagesConfig();
+        }
+        messages.fillFields();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Chikachi
+ * Copyright (C) 2018 Chikachi and other contributors
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
@@ -22,7 +22,6 @@ import net.dv8tion.jda.core.entities.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"})
 public class CommandConfig {
     private String name;
     private String command;
@@ -35,7 +34,7 @@ public class CommandConfig {
 
     }
 
-    public CommandConfig(String name, String command, boolean enabled,  boolean outputEnabled, List<String> aliases, List<String> permissions) {
+    public CommandConfig(String name, String command, boolean enabled, boolean outputEnabled, List<String> aliases, List<String> permissions) {
         this.name = name;
         this.command = command;
         this.enabled = enabled;
@@ -82,10 +81,6 @@ public class CommandConfig {
 
         if (user == null || channel == null) {
             return false;
-        }
-
-        if (user.getId().equals("86368887284719616")) {
-            return true;
         }
 
         final List<Role> roles = new ArrayList<>();
