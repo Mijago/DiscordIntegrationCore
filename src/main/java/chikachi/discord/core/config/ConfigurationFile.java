@@ -98,11 +98,11 @@ public class ConfigurationFile<T extends IConfigurable> {
 
     public void saveClean(File directory) {
         Gson gson = createGson();
-        try (FileWriter writer = new FileWriter(this.file.getPath().replace(".json", "_clean.json"));) {
-            ConfigWrapper cleanConfig = new ConfigWrapper();
+        try (FileWriter writer = new FileWriter(this.file.getPath().replace(".json", "_clean.json"))) {
+            T cleanConfig = wrapperClass.newInstance();
             cleanConfig.fillFields();
             writer.write(gson.toJson(cleanConfig));
-        } catch (IOException e) {
+        } catch (IOException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
     }
