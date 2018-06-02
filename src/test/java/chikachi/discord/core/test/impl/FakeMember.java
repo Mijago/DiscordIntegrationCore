@@ -36,6 +36,11 @@ public class FakeMember implements Member {
     }
 
     @Override
+    public List<Permission> getPermissions(Channel channel) {
+        return null;
+    }
+
+    @Override
     public boolean hasPermission(Permission... permissions) {
         return false;
     }
@@ -101,8 +106,8 @@ public class FakeMember implements Member {
     }
 
     @Override
-    public List<Permission> getPermissions(Channel channel) {
-        return null;
+    public int getColorRaw() {
+        return 0;
     }
 
     @Override
