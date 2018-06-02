@@ -32,5 +32,6 @@ public class MinecraftConfig {
         if (this.integrations == null) {
             this.integrations = new MinecraftIntegrationConfig();
         }
+        this.integrations.fillFields();
     }
 }
